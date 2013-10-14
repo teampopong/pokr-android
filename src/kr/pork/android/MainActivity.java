@@ -15,11 +15,11 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		mWebView = (WebView) findViewById(R.id.webview);
-		 // 웹뷰에서 자바스크립트실행가능
+		// enable java sciript
         mWebView.getSettings().setJavaScriptEnabled(true); 
-        // 구글홈페이지 지정
+        // designate the URL to load
         mWebView.loadUrl("http://pokr.kr");
-        // WebViewClient 지정
+        // set a WebViewClient
         mWebView.setWebViewClient(new WebViewClientClass());  
          
 	}
