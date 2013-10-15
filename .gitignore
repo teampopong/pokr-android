@@ -8,3 +8,4 @@
 # Android dependent Filse #
 ./bin/res
 ./bin/classes
+./bin/AndroidManifest.xml

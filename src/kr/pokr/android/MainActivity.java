@@ -1,4 +1,4 @@
-package kr.pork.android;
+package kr.pokr.android;
 
 import android.app.Activity;
 import android.os.Bundle;
