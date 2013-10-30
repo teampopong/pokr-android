@@ -194,7 +194,7 @@ public class MQTTService extends Service implements MqttSimpleCallback
             public void run() {
                 handleStart(intent, startId);
             }
-        }, "MQTTservice").start();
+        }).start();
 
         // return START_NOT_STICKY - we want this Service to be left running
         //  unless explicitly stopped, and it's process is killed, we want it to
@@ -263,33 +263,39 @@ public class MQTTService extends Service implements MqttSimpleCallback
             nm.notify(MQTT_NOTIFICATION_ONGOING, notification);
 
 
-            // before we attempt to connect - we check if the phone has a
-            //  working data connection
-            if (isOnline())
-            {
-                // we think we have an Internet connection, so try to connect
-                //  to the message broker
-                if (connectToBroker())
-                {
-                    // we subscribe to a topic - registering to receive push
-                    //  notifications with a particular key
-                    // in a 'real' app, you might want to subscribe to multiple
-                    //  topics - I'm just subscribing to one as an example
-                    // note that this topicName could include a wildcard, so
-                    //  even just with one subscription, we could receive
-                    //  messages for multiple topics
-                    subscribeToTopic(topicName);
-                }
-            }
-            else
-            {
-                // we can't do anything now because we don't have a working
-                //  data connection
-                connectionStatus = MQTTConnectionStatus.NOTCONNECTED_WAITINGFORINTERNET;
 
-                // inform the app that we are not connected
-                broadcastServiceStatus("Waiting for network connection");
-            }
+            
+            new Thread(new Runnable() {
+            	@Override
+            	public void run() {
+                    // before we attempt to connect - we check if the phone has a
+                    //  working data connection
+                    if (isOnline())
+                    {
+                        // we think we have an Internet connection, so try to connect
+                        //  to the message broker
+                        if (connectToBroker())
+                        {
+                            // we subscribe to a topic - registering to receive push
+                            //  notifications with a particular key
+                            // in a 'real' app, you might want to subscribe to multiple
+                            //  topics - I'm just subscribing to one as an example
+                            // note that this topicName could include a wildcard, so
+                            //  even just with one subscription, we could receive
+                            //  messages for multiple topics
+                            subscribeToTopic(topicName);
+                        }
+                    }else
+                    {
+                        // we can't do anything now because we don't have a working
+                        //  data connection
+                        connectionStatus = MQTTConnectionStatus.NOTCONNECTED_WAITINGFORINTERNET;
+
+                        // inform the app that we are not connected
+                        broadcastServiceStatus("Waiting for network connection");
+                    }
+            	}
+            }).start();
         }
 
         // changes to the phone's network - such as bouncing between WiFi
@@ -390,6 +396,7 @@ public class MQTTService extends Service implements MqttSimpleCallback
                                                                 PendingIntent.FLAG_UPDATE_CURRENT);
         notification.setLatestEventInfo(this, title, body, contentIntent);
         nm.notify(MQTT_NOTIFICATION_UPDATE, notification);
+        Log.e(PokrData.DEBUG_TAG, alert +"_"+title +"_"+body);
     }
 
 
@@ -537,9 +544,17 @@ public class MQTTService extends Service implements MqttSimpleCallback
             broadcastServiceStatus("Connection lost - reconnecting...");
 
             // try to reconnect
-            if (connectToBroker()) {
-                subscribeToTopic(topicName);
-            }
+            new Thread(new Runnable() {
+            	@Override
+            	public void run() {
+            		// reconnect
+            		if (connectToBroker())
+            		{
+            			subscribeToTopic(topicName);
+            		}
+            	}
+            }).start();
+            
         }
 
         // we're finished - if the phone is switched off, it's okay for the CPU
@@ -671,7 +686,7 @@ public class MQTTService extends Service implements MqttSimpleCallback
             //
             // inform the user (for times when the Activity UI isn't running)
             //   that we failed to connect
-            notifyUser("Unable to connect", "MQTT", "Unable to connect - will retry later");
+            notifyUser("Unable to connect", "MQTT", "Unable to connect - will retry later : "+e.getCause());
 
             // if something has failed, we wait for one keep-alive period before
             //   trying again
@@ -798,7 +813,7 @@ public class MQTTService extends Service implements MqttSimpleCallback
     private class BackgroundDataChangeIntentReceiver extends BroadcastReceiver
     {
         @Override
-        public void onReceive(Context ctx, Intent intent)
+        public void onReceive(Context ctx, final Intent intent)
             // we protect against the phone switching off while we're doing this
         {
         	Log.i(PokrData.DEBUG_TAG,"[debug]here");
@@ -817,7 +832,12 @@ public class MQTTService extends Service implements MqttSimpleCallback
                 // user has allowed background data - we start again - picking
                 //  up where we left off in handleStart before
                 defineConnectionToBroker(brokerHostName);
-                handleStart(intent, 0);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        handleStart(intent, 0);
+                    }
+                }).start();
             }
             else
             {
@@ -855,16 +875,22 @@ public class MQTTService extends Service implements MqttSimpleCallback
             WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MQTT");
             wl.acquire();
 
-            if (isOnline())
-            {
-                // we have an internet connection - have another try at connecting
-                if (connectToBroker())
-                {
-                    // we subscribe to a topic - registering to receive push
-                    //  notifications with a particular key
-                    subscribeToTopic(topicName);
-                }
-            }
+            new Thread(new Runnable() {
+            	@Override
+            	public void run() {
+            		if (isOnline())
+            		{
+            			// we have an internet connection - have another try at connecting
+            			if (connectToBroker())
+            			{
+            				// we subscribe to a topic - registering to receive push
+            				//  notifications with a particular key
+            				subscribeToTopic(topicName);
+            			}
+            		}
+            	}
+            }).start();
+
 
             // we're finished - if the phone is switched off, it's okay for the CPU
             //  to sleep now
@@ -951,10 +977,16 @@ public class MQTTService extends Service implements MqttSimpleCallback
                     Log.e("mqtt", "disconnect failed - persistence exception", e1);
                 }
 
-                // reconnect
-                if (connectToBroker()) {
-                    subscribeToTopic(topicName);
-                }
+                new Thread(new Runnable() {
+                	@Override
+                	public void run() {
+                		// reconnect
+                		if (connectToBroker())
+                		{
+                			subscribeToTopic(topicName);
+                		}
+                	}
+                }).start();
             }
 
             // start the next keep alive period
