@@ -31,5 +31,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
+    <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
 
 </manifest>

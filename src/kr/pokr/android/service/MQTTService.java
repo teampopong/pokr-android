@@ -21,6 +21,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -178,7 +179,7 @@ public class MQTTService extends Service implements MqttSimpleCallback
         //  preference
         dataEnabledReceiver = new BackgroundDataChangeIntentReceiver();
         registerReceiver(dataEnabledReceiver,
-                         new IntentFilter(ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED));
+                         new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
         // define the connection to the broker
         defineConnectionToBroker(brokerHostName);
@@ -187,7 +188,7 @@ public class MQTTService extends Service implements MqttSimpleCallback
     @Override
     public int onStartCommand(final Intent intent, int flags, final int startId)
     {
-    	Log.i("MQTT","start MQTTService");
+    	Log.i(PokrData.DEBUG_TAG,"start MQTTService");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -798,16 +799,20 @@ public class MQTTService extends Service implements MqttSimpleCallback
     {
         @Override
         public void onReceive(Context ctx, Intent intent)
-        {
             // we protect against the phone switching off while we're doing this
+        {
+        	Log.i(PokrData.DEBUG_TAG,"[debug]here");
             //  by requesting a wake lock - we request the minimum possible wake
             //  lock - just enough to keep the CPU running until we've finished
             PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
             WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MQTT");
             wl.acquire();
 
+            // monitoring the connection status
             ConnectivityManager cm = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
-            if (cm.getBackgroundDataSetting())
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+            if (activeNetwork != null && activeNetwork.isConnectedOrConnecting())
             {
                 // user has allowed background data - we start again - picking
                 //  up where we left off in handleStart before
