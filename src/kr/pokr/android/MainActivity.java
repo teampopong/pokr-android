@@ -1,7 +1,16 @@
 package kr.pokr.android;
 
+import kr.pokr.android.data.PokrData;
+import kr.pokr.android.service.MQTTService;
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -15,10 +24,32 @@ public class MainActivity extends Activity {
 	private WebView mWebView;
 	private ProgressBar progressBar;
 
+
+	private StatusUpdateReceiver statusUpdateIntentReceiver;
+	private MQTTMessageReceiver  messageIntentReceiver;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+	    statusUpdateIntentReceiver = new StatusUpdateReceiver();
+	    IntentFilter intentSFilter = new IntentFilter(MQTTService.MQTT_STATUS_INTENT);
+	    registerReceiver(statusUpdateIntentReceiver, intentSFilter);
+
+	    messageIntentReceiver = new MQTTMessageReceiver();
+	    IntentFilter intentCFilter = new IntentFilter(MQTTService.MQTT_MSG_RECEIVED_INTENT);
+	    registerReceiver(messageIntentReceiver, intentCFilter);
+
+
+		SharedPreferences settings = getSharedPreferences(MQTTService.APP_ID, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString("broker", PokrData.preferenceBrokerHost);
+		editor.putString("topic",  PokrData.preferenceBrokerTopic);
+		editor.commit();
+
+		Intent svc = new Intent(this, MQTTService.class);
+		startService(svc);
 
 		mWebView = (WebView) findViewById(R.id.webview);
 		progressBar = (ProgressBar) this.findViewById(R.id.progress);
@@ -44,6 +75,13 @@ public class MainActivity extends Activity {
 	    return super.onKeyDown(keyCode, event);
 	}
 
+	@Override
+	protected void onDestroy()
+	{
+	    unregisterReceiver(statusUpdateIntentReceiver);
+	    unregisterReceiver(messageIntentReceiver);
+
+	}
 
     private class WebViewClientClass extends WebViewClient {
         @Override
@@ -74,6 +112,37 @@ public class MainActivity extends Activity {
 		public void onProgressChanged(WebView view, int newProgress) {
 			progressBar.setProgress(newProgress);
 		}
+	}
+
+	public class StatusUpdateReceiver extends BroadcastReceiver
+	{
+	    @Override
+	    public void onReceive(Context context, Intent intent)
+	    {
+	        Bundle notificationData = intent.getExtras();
+	        String newStatus = notificationData.getString(MQTTService.MQTT_STATUS_MSG);	    	
+	    }
+	}
+	public class MQTTMessageReceiver extends BroadcastReceiver
+	{
+	    @Override
+	    public void onReceive(Context context, Intent intent)
+	    {
+	        Bundle notificationData = intent.getExtras();
+	        String newTopic = notificationData.getString(MQTTService.MQTT_MSG_RECEIVED_TOPIC);
+	        String newData  = notificationData.getString(MQTTService.MQTT_MSG_RECEIVED_MSG);	
+	        Log.i("MQTT",newData);
+	    }
+	}
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus)
+	{
+	    super.onWindowFocusChanged(hasFocus);
+	    if (hasFocus)
+	    {
+	        NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+	        mNotificationManager.cancel(MQTTService.MQTT_NOTIFICATION_UPDATE);
+	    }
 	}
 
 }
