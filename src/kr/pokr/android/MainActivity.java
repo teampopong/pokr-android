@@ -34,12 +34,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 	    statusUpdateIntentReceiver = new StatusUpdateReceiver();
-	    IntentFilter intentSFilter = new IntentFilter(MQTTService.MQTT_STATUS_INTENT);
-	    registerReceiver(statusUpdateIntentReceiver, intentSFilter);
-
+	    registerReceiver(statusUpdateIntentReceiver, new IntentFilter(MQTTService.MQTT_STATUS_INTENT));
 	    messageIntentReceiver = new MQTTMessageReceiver();
-	    IntentFilter intentCFilter = new IntentFilter(MQTTService.MQTT_MSG_RECEIVED_INTENT);
-	    registerReceiver(messageIntentReceiver, intentCFilter);
+	    registerReceiver(messageIntentReceiver, new IntentFilter(MQTTService.MQTT_MSG_RECEIVED_INTENT));
 
 
 		SharedPreferences settings = getSharedPreferences(MQTTService.APP_ID, 0);
@@ -120,7 +117,9 @@ public class MainActivity extends Activity {
 	    public void onReceive(Context context, Intent intent)
 	    {
 	        Bundle notificationData = intent.getExtras();
-	        String newStatus = notificationData.getString(MQTTService.MQTT_STATUS_MSG);	    	
+	        String newStatus = notificationData.getString(MQTTService.MQTT_STATUS_MSG);
+	        // To-Do
+	        // process the received data
 	    }
 	}
 	public class MQTTMessageReceiver extends BroadcastReceiver
@@ -130,8 +129,10 @@ public class MainActivity extends Activity {
 	    {
 	        Bundle notificationData = intent.getExtras();
 	        String newTopic = notificationData.getString(MQTTService.MQTT_MSG_RECEIVED_TOPIC);
-	        String newData  = notificationData.getString(MQTTService.MQTT_MSG_RECEIVED_MSG);	
-	        Log.i("MQTT",newData);
+	        String newData  = notificationData.getString(MQTTService.MQTT_MSG_RECEIVED_MSG);
+	        // To-Do
+	        // process the received data
+	        Log.i(PokrData.DEBUG_TAG,newData);
 	    }
 	}
 	@Override
