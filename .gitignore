@@ -9,4 +9,5 @@
 ./bin/res
 ./bin/classes
 ./bin/AndroidManifest.xml
+./bin/*
 ./gen/*
