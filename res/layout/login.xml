@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.chatt.Login" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/pad_20dp"
+        android:paddingLeft="@dimen/pad_15dp"
+        android:paddingRight="@dimen/pad_15dp"
+        android:paddingTop="@dimen/pad_20dp" >
+
+        <TextView
+            android:id="@+id/slogan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/pad_5dp"
+            android:text="@string/slogan"
+            android:textSize="@dimen/txt_14sp" />
+
+        <ImageView
+            android:id="@+id/logo_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_login" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_15dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/btnFb"
+                style="@style/btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_button"
+                android:text="@string/facebook_login" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/pad_5dp"
+                android:text="@string/or"
+                android:textSize="@dimen/txt_14sp" />
+
+            <EditText
+                android:id="@+id/editText_id"
+                style="@style/editext_graybg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_username"
+                android:hint="@string/email" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/editText_passowd"
+                style="@style/editext_graybg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/pad_10dp"
+                android:layout_marginTop="@dimen/pad_5dp"
+                android:drawableLeft="@drawable/ic_pwd"
+                android:hint="@string/password"
+                android:inputType="textPassword" >
+            </EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad_15dp"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:padding="@dimen/pad_5dp"
+                    android:text="@string/cancel"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/txt_18sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:padding="@dimen/pad_5dp"
+                    android:text="@string/log_in"
+                    android:textColor="@color/sky_blue"
+                    android:textSize="@dimen/txt_18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnForgot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:padding="@dimen/pad_5dp"
+                android:text="@string/forgot_my_pwd"
+                android:textColor="@color/main_color_gray_dk"
+                android:textSize="@dimen/txt_14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
