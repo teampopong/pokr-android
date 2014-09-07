@@ -10,8 +10,10 @@
     <string name="forgot_my_pwd">비밀번호를 잊었다면?</string>
     <string name="email">이메일을 입력하세요</string>
     <string name="password">비밀번호를 입력하세요</string>
-    <string name="register">Register</string>
+    <string name="register">가입하기</string>
     <string name="facebook_login">페이스북으로 로그인</string>
+    <string name="facebook_register">페이스북으로 등록</string>
+    <string name="email_register">이메일로 등록</string>
     <string name="slogan"> 정치 정보를 한 곳에서,\n 쉽고 빠르고 재미있게</string>
    
     

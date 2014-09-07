@@ -11,20 +11,15 @@ public class SplashScreen extends Activity
 	/** Check if the app is running. */
 	private boolean isRunning;
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash);
 
 		isRunning = true;
 
 		startSplash();
-
 	}
 
 	/**

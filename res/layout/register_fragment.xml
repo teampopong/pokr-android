@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/pad_15dp"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btnFbReg"
+        style="@style/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_button"
+        android:layout_margin="5dp"
+        android:text="@string/facebook_register" />
+
+    <Button
+        android:id="@+id/btnEmailReg"
+        style="@style/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_button"
+        android:layout_margin="5dp"
+        android:text="@string/email_register" />
+
+    <Button
+        android:id="@+id/btnToLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:padding="@dimen/pad_5dp"
+        android:layout_margin="5dp"
+        android:text="@string/log_in"
+        android:textColor="@color/black"
+        android:textSize="@dimen/txt_18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnForgot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:padding="@dimen/pad_5dp"
+        android:text="@string/forgot_my_pwd"
+        android:textColor="@color/main_color_gray_dk"
+        android:textSize="@dimen/txt_14sp" />
+
+</LinearLayout>
