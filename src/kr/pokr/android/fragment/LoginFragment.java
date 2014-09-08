@@ -1,6 +1,7 @@
 package kr.pokr.android.fragment;
 
 import kr.pokr.android.HomeActivity;
+import kr.pokr.android.HomeActivity_;
 import kr.pokr.android.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -29,10 +30,11 @@ public class LoginFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(),HomeActivity.class);
+				Intent intent = new Intent(getActivity(),HomeActivity_.class);
 				startActivity(intent);
 			}
 		});
+		
 		btnCancle.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
