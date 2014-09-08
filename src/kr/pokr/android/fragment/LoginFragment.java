@@ -1,7 +1,9 @@
 package kr.pokr.android.fragment;
 
+import kr.pokr.android.HomeActivity;
 import kr.pokr.android.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -23,7 +25,14 @@ public class LoginFragment extends Fragment {
 		Button btnCancle = (Button)v.findViewById(R.id.btnCancel);
 		Button btnLogin = (Button)v.findViewById(R.id.btnLogin);
 		
-		
+		btnLogin.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(),HomeActivity.class);
+				startActivity(intent);
+			}
+		});
 		btnCancle.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
