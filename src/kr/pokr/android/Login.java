@@ -4,20 +4,14 @@ import kr.pokr.android.data.ConstantData;
 import kr.pokr.android.fragment.EmailRegsterFragment;
 import kr.pokr.android.fragment.LoginFragment;
 import kr.pokr.android.fragment.RegisterFragment;
-import android.net.nsd.NsdManager.RegistrationListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
-/**
- * The Class Login is an Activity class that shows the login screen to users.
- * The current implementation simply start the MainActivity. You can write your
- * own logic for actual login and for login using Facebook and Twitter.
- */
+import com.facebook.widget.LoginButton;
+
+
 public class Login extends FragmentActivity implements RegisterFragment.FragmentClickListener
 {
 
@@ -32,6 +26,7 @@ public class Login extends FragmentActivity implements RegisterFragment.Fragment
 		// setting initial fragment
 		mCurrentFragmentIndex = ConstantData.FRAG_REG;
 		fragmentReplace(mCurrentFragmentIndex, false);
+
 		
 	}
 	

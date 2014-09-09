@@ -5,22 +5,24 @@
     android:layout_marginTop="@dimen/pad_15dp"
     android:orientation="vertical" >
 
-    <Button
+    <com.facebook.widget.LoginButton
+        xmlns:fb="http://schemas.android.com/apk/res-auto"
         android:id="@+id/btnFbReg"
         style="@style/btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_button"
         android:layout_margin="5dp"
-        android:text="@string/facebook_register" />
+        android:background="@drawable/border_button"
+        android:text="@string/facebook_register"
+        fb:login_text="@string/facebook_register" />
 
     <Button
         android:id="@+id/btnEmailReg"
         style="@style/btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_button"
         android:layout_margin="5dp"
+        android:background="@drawable/border_button"
         android:text="@string/email_register" />
 
     <Button
@@ -28,9 +30,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="5dp"
         android:background="@color/white"
         android:padding="@dimen/pad_5dp"
-        android:layout_margin="5dp"
         android:text="@string/log_in"
         android:textColor="@color/black"
         android:textSize="@dimen/txt_18sp"
