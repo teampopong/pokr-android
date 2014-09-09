@@ -5,15 +5,26 @@ import java.util.ArrayList;
 import kr.pokr.android.R;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 @EFragment(R.layout.home_fragment)
 public class HomeFragment extends Fragment {
+	
+	@ViewById
+	LinearLayout home_fragment_empty;
+	
+	@Click
+	void btn_add_scrap(){
+		home_fragment_empty.setVisibility(View.GONE);
+	}
 	
 	@ViewById
 	ListView home_fragment_lv;
@@ -34,4 +45,6 @@ public class HomeFragment extends Fragment {
         android.R.layout.simple_list_item_1, list);
     home_fragment_lv.setAdapter(adapter);
 	}
+	
+	
 }
