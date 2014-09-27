@@ -10,3 +10,5 @@
 ./bin/AndroidManifest.xml
 ./bin/*
 ./gen/*
+bin
+gen
