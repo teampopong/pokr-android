@@ -37,7 +37,7 @@ public class SplashScreen extends Activity
 				try
 				{
 
-					Thread.sleep(3000);
+					Thread.sleep(30); //3000 is 3 seconds
 
 				} catch (Exception e)
 				{

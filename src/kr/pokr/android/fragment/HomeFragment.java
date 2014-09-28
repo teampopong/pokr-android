@@ -3,6 +3,8 @@ package kr.pokr.android.fragment;
 import java.util.ArrayList;
 
 import kr.pokr.android.R;
+import kr.pokr.android.data.KeywordBillCardData;
+import kr.pokr.android.utils.KeywordBillCardAdapter;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -31,19 +33,14 @@ public class HomeFragment extends Fragment {
 	
 	@AfterViews
 	void initListView(){
-    String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-        "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-        "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-        "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-        "Android", "iPhone", "WindowsMobile" };
+    
+    ArrayList<KeywordBillCardData> card_list = new ArrayList<KeywordBillCardData>();
 
-    final ArrayList<String> list = new ArrayList<String>();
-    for (int i = 0; i < values.length; ++i) {
-      list.add(values[i]);
-    }
-    ArrayAdapter adapter = new ArrayAdapter(getActivity(),
-        android.R.layout.simple_list_item_1, list);
-    home_fragment_lv.setAdapter(adapter);
+    card_list.add(new KeywordBillCardData());
+    
+	ArrayAdapter<KeywordBillCardData> card_adapter = new KeywordBillCardAdapter(getActivity(), card_list);
+	home_fragment_lv.setAdapter(card_adapter);
+	
 	}
 	
 	
