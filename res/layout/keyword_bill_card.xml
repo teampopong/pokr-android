@@ -17,6 +17,7 @@
             <Button
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:id="@+id/keyword_button"
                 android:background="@drawable/round_button"
                 android:text="test" />
         </LinearLayout>
@@ -56,14 +57,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="발의자들" />
+                android:text="발의자들"
+                android:textColor="@color/black" />
+
         </LinearLayout>
 
         <TextView
             android:id="@+id/text_bill_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="의안 제목" />
+            android:text="의안 제목"
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:id="@+id/bill_status"
@@ -76,7 +80,8 @@
                 android:id="@+id/text_bill_status_before"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="text_bill_status_before" />
+                android:text="text_bill_status_before"
+                android:textColor="@color/black" />
 
             <ImageView
                 android:id="@+id/img_bill_status_arrow"
@@ -88,7 +93,9 @@
                 android:id="@+id/text_bill_status_after"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="text_bill_status_after" />
+                android:text="text_bill_status_after"
+                android:textColor="@color/black" />
+
         </LinearLayout>
     </LinearLayout>
 
@@ -114,7 +121,9 @@
             android:id="@+id/text_bill_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="text_bill_content ㅁㅇㄻㄴㅇ리만얼미ㅏㄴ어리ㅏㄴ멍리ㅏㅁ너라ㅣ넝라ㅣㄴ멍리ㅏㄴㅁ어릳ㅁㄹ" />
+            android:text="text_bill_content ㅁㅇㄻㄴㅇ리만얼미ㅏㄴ어리ㅏㄴ멍리ㅏㅁ너라ㅣ넝라ㅣㄴ멍리ㅏㄴㅁ어릳ㅁㄹ"
+            android:textColor="@color/black" />
+
     </FrameLayout>
 
 </LinearLayout>

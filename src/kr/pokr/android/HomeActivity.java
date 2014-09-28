@@ -25,8 +25,8 @@ public class HomeActivity extends FragmentActivity
     @AfterViews
     @Background
     void afterViews() {
-        Object result = restClient.getEvents(); //Play with it
-        Log.d("test",result.toString());
+        //Object result = restClient.getEvents(); //Play with it
+        //Log.d("test",result.toString());
     }
     
 	

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class KeywordBillCardAdapter extends ArrayAdapter<KeywordBillCardData> {
@@ -28,6 +29,7 @@ public class KeywordBillCardAdapter extends ArrayAdapter<KeywordBillCardData> {
 		if(convertView ==null){
 			view = mInflater.inflate(R.layout.keyword_bill_card, null);
 			holder = new ViewHolder();
+			holder.key_word = (Button)view.findViewById(R.id.keyword_button);
 			holder.bill_proposer = (TextView)view.findViewById(R.id.text_proposer);
 			holder.bill_before_status = (TextView)view.findViewById(R.id.text_bill_status_before);
 			holder.bill_after_status = (TextView)view.findViewById(R.id.text_bill_status_after);
@@ -41,6 +43,7 @@ public class KeywordBillCardAdapter extends ArrayAdapter<KeywordBillCardData> {
 		}
 		
 		KeywordBillCardData card_data = getItem(position);
+		holder.key_word.setText(card_data.keyword);
 		holder.bill_proposer.setText(card_data.proposer);
 		holder.bill_before_status.setText(card_data.bill_before_status);
 		holder.bill_after_status.setText(card_data.bill_after_status);
@@ -54,6 +57,7 @@ public class KeywordBillCardAdapter extends ArrayAdapter<KeywordBillCardData> {
 	
 	
 	class ViewHolder{
+		Button key_word;
 		TextView bill_proposer;
 		TextView bill_before_status;
 		TextView bill_after_status;
