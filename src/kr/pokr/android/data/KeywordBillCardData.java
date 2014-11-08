@@ -28,6 +28,9 @@ public class KeywordBillCardData {
 		keyword = _keyword;
 		proposer = data.sponsor;
 		bill_title = data.title;
+		// status_ids format : "status_ids": [1, 11, 5, 3 ]
+		int before_status_index = (Integer)data.status_ids.get(data.status_ids.size()-2);
+		bill_before_status = BillStatus.status_hm.get(before_status_index);
 		bill_after_status = data.status;
 		bill_content = data.content;
 		date = data.date;

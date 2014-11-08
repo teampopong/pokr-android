@@ -1,11 +1,9 @@
 package kr.pokr.android.network.data;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BillJsonData {
@@ -24,5 +22,8 @@ public class BillJsonData {
 	
 	@JsonProperty("status")
 	public String status;
+	
+	@JsonProperty("status_ids")
+	public List status_ids;
 
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.facebook.Session;
 import com.facebook.SessionState;
@@ -88,6 +89,8 @@ public class RegisterFragment extends Fragment {
         @Override
         public void onUserInfoFetched(GraphUser user) {
             RegisterFragment.this.user = user;
+            Log.i("test",String.valueOf(user.toString()));
+            Log.i("test",String.valueOf(user.asMap().get("email")));
             //updateUI();
             // It's possible that we were waiting for this.user to be populated in order to post a
             // status update.
